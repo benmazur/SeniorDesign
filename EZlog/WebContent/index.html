@@ -10,8 +10,9 @@
 
 <!-- Bootstrap -->
 <link href="bootstrap.css" rel="stylesheet">
-<script src="bootstrap.js"></script>
 <script src="jquery-3.1.1.js"></script>
+<script src="myjava.js"></script>
+<script src="bootstrap.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -19,56 +20,151 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body style='background-color: #F0F0F0' onload="GetTags()">
 	<nav class="navbar navbar-default" style="background-color: #454545">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#" style="color: #fff"> EZLOG </a>
+				<a class="navbar-brand" style="color: #fff"> EZLOG </a>
 			</div>
 		</div>
 	</nav>
-	<div class='col-md-3'></div>
-	<div class='col-md-6'>
-
-		<div class="table-responsive">
-			<table class="table">
-				<col width="12%">
-				<col width="44%">
-				<col width="44%">
-				
-				<tr>
-					<th>Price</th>
-					<th>Item</th>
-					<th>Tag</th>
-				</tr>
-				
-					<!-- Start of Example Items -->		
-				<tr>
-					<td>a</td>
-					<td>b</td>
-					<td>c</td>
-				</tr>
-				<tr>
-					<td>d</td>
-					<td>e</td>
-					<td>f</td>
-				</tr>
-				<tr style="border-bottom:solid 1px #ddd">
-					<td>g</td>
-					<td>h</td>
-					<td>i</td>
-				</tr>
-				<tr>
-					<td>j</td>
-				</tr>
-					<!-- End of Example Items -->	
-
-			</table>
-			
+	<div class="row" id='row-1'>
+		<div class='col-md-3'></div>
+		<div class='col-md-6'>
+			<div class="table-responsive">
+				<table class="table" id="tag-table">
+				</table>
+			</div>
+		</div>
+		<div class='col-md-3'></div>
+	</div>
+	<div class="row" id='row-2'>
+		<div class="col-md-3"></div>
+		<div class='col-md-6'>
+			<div class="col-xs-6 col-height">
+				<div class="inside">
+					<table id='total'>
+						<!-- 
+		<h2><a id='totalCost' class='label label-default' style="height:120px"> $ total Cost</a></h2>
+		
+					-->
+					</table>
+				</div>
+			</div>
+			<div class="col-xs-6 col-height">
+				<div class="inside">
+					<div class="content" id='pay-button'>
+						<!--  	<br>
+						<button style='float: right' type='button'
+						class='btn btn-primary btn-lg' onClick='pay()' data-toggle='modal'
+						data-target='#paymentModal'>Pay</button>
+						-->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
 		</div>
 	</div>
-	<div class='col-md-3'></div>
 
+	<div id="addItemModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Tag is not in Inventory</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div style='margin-left: 18px;'>Title</div>
+						<div class="container-fluid">
+							<input type="text" class="form-control"
+								placeholder="" id="unknownItemTitle"><br>
+						</div>
+					</div>
+					<div class='row'>
+						<div style='margin-left: 18px;'>Price</div>
+						<div class="container-fluid">
+							<input type="text" class="form-control"
+								placeholder="" id="unknownItemPrice"><br>
+						</div>
+					</div>
+					<div class='row'>
+						<div style='margin-left: 18px;'>Tag ID</div>
+						<div class="container-fluid" id="unknownItemTag">
+							
+						</div>
+					</div>
 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteFromVirtualCart()">Close</button>
+					<button type="button" onclick="addToInventoryDatabase()" class="btn btn-primary" data-dismiss="modal">Add to Inventory</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	
+	<div id="paymentModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" onclick='deleteFromVirtualCart()'>
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Payment Information</h4>
+				</div>
+				<div class="modal-body">
+					<div class='row'>
+						<div style='margin-left: 18px;'>Name</div>
+						<div class="container-fluid">
+							<input type="text" class="form-control"
+								placeholder="Name on Card"><br>
+						</div>
+					</div>
+					<div class='row'>
+						<div style='margin-left: 18px;'>Credit Card Number</div>
+						<div class="container-fluid">
+							<input type="text" class="form-control"
+								placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"><br>
+						</div>
+					</div>
+					<div class='row'>
+						<div class="col-xs-6 col-height">
+							<div class="inside">
+								<div>Expiration Date</div>
+								<div class="container-fluid">
+									<input style='margin-left: -16px' type="text"
+										class="form-control" placeholder="MM-YY"><br>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-height">
+							<div class="inside">
+								<div>CSV</div>
+								<div class="container-fluid">
+									<input style='margin-left: -16px' type="text"
+										class="form-control" placeholder="CSV"><br>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick='deleteFromVirtualCart()'>Close</button>
+					<button type="button" onclick="pay()" class="btn btn-primary" data-dismiss="modal">Pay</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </body>
 </html>

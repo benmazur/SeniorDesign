@@ -10,5 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/Users/JoeRecchia/Downloads/sqlite-jdbc-3.15.1.jar"/>
 	<classpathentry kind="lib" path="/Users/JoeRecchia/Downloads/mysql-connector.jar"/>
+	<classpathentry kind="lib" path="/Users/JoeRecchia/Downloads/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="/Users/JoeRecchia/Downloads/javax.servlet-3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
