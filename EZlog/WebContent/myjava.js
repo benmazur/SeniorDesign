@@ -3,7 +3,6 @@ function GetTags(){
 	var xmlhttp=null;
 	if (window.XMLHttpRequest)
 	{// code for IE7+, Firefox, Chrome, Opera, Safari
-
 		xmlhttp=new XMLHttpRequest();
 	}
 	else
@@ -86,7 +85,7 @@ function deleteFromVirtualCart(x){
 		}
 	}
 	xmlhttp.onload = onreadystatechange;
-	xmlhttp.open("GET",url,true);
+	xmlhttp.open("POST",url,true);
 	xmlhttp.send(name);
 }
 
@@ -115,6 +114,7 @@ function addToInventoryDatabase(){
 		}
 	}
 	xmlhttp.onload = onreadystatechange;
-	xmlhttp.open("GET",url,true);
+	xmlhttp.open("POST",url,true);
 	xmlhttp.send(name);
 }
+

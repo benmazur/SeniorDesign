@@ -33,6 +33,11 @@ public class addItemToInventory extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("val");
 		String title = request.getParameter("title");
 		String price = request.getParameter("price");
@@ -50,13 +55,6 @@ public class addItemToInventory extends HttpServlet {
 			System.err.println("Got an exception! ");
 			System.err.println(e.getMessage());
 		}
-
-		
 	}
-
-
-
-	/*	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}*/
 
 }

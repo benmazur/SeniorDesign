@@ -33,6 +33,11 @@ public class deleteFromVirtualCart extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("val");
 		try{  
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -49,12 +54,6 @@ public class deleteFromVirtualCart extends HttpServlet {
 			System.err.println(e.getMessage());
 		}
 
-		
 	}
-
-
-
-	/*	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}*/
 
 }
