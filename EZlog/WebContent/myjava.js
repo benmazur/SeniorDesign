@@ -35,7 +35,7 @@ function GetTags(){
 	xmlhttp.open("GET",url,true);
 	xmlhttp.send(name);
 
-	setTimeout(GetTags, 2500);
+	//setTimeout(GetTags, 2500);
 }
 
 function pay(){

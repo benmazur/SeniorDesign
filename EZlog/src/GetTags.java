@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
  
 
 
@@ -26,13 +27,13 @@ public class GetTags extends HttpServlet {
 	}
 	
 	
-	public ArrayList<Tag> getTaggedItems(String table){
+	public ArrayList<Tag> getTaggedItems(String table, String user){
 		ArrayList<Tag> tags = new ArrayList<Tag>();
 		try{  
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+table, "root", "root");
 			Statement st = con.createStatement();
-			String sql = ("SELECT * FROM tags;");
+			String sql = ("SELECT * FROM " + user +"_tags;");
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()){
 					String id = rs.getString(1);
@@ -79,7 +80,9 @@ public class GetTags extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get tags
-		ArrayList<Tag> tags = getTaggedItems("virtualCart");
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		ArrayList<Tag> tags = getTaggedItems("virtualCart", user);
 		//get inventory items
 		ArrayList<Item> items = getItemTable("Inventory");
 
@@ -131,15 +134,6 @@ public class GetTags extends HttpServlet {
 		//if (itemNotInInventory){
 			output+="~"+unfoundID;
 		//}
-		output+="~";
-		//Cost Section
-		if(totalCost>0){
-			output+="<h2><a id='totalCost' class='label label-default'> $ "
-					+ totalCost+ " total </a><h2>";
-			output+="~<button style='float: right; margin-top: 10px' type='button'"
-					+"class='btn btn-primary btn-lg' data-toggle='modal'"
-					+"data-target='#paymentModal'>Pay</button>";
-		}
 
 
 		

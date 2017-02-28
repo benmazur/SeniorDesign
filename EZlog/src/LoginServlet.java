@@ -25,7 +25,8 @@ public class LoginServlet extends HttpServlet {
 		// get request parameters for userID and password
 		String user = request.getParameter("user");
 		String pwd = request.getParameter("pwd");
-
+		
+		
 		if(valid(user, pwd)){
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
@@ -37,10 +38,10 @@ public class LoginServlet extends HttpServlet {
 			// Set standard HTTP/1.0 no-cache header.
 			response.setHeader("Pragma", "no-cache");
 			//Get the encoded URL string
-			String encodedURL = response.encodeRedirectURL("LoginSuccess.jsp");
+			String encodedURL = response.encodeRedirectURL("index.jsp?user="+user);
 			response.sendRedirect(encodedURL);
 		}else{
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			PrintWriter out= response.getWriter();
 			out.println("<font color=red>Either user name or password is wrong.</font>");
 			rd.include(request, response);
