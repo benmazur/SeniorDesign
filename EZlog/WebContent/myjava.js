@@ -63,6 +63,35 @@ function pay(){
 	xmlhttp.open("GET",url,true);
 	xmlhttp.send(name);
 }
+
+function searchDatabase(str) {
+	var xmlhttp=null;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if (str.length == 0) {
+		//document.getElementById("nodes").innerHTML = "";
+		loadNodes();
+		return;
+	} else {
+		var onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("nodes").innerHTML = xmlhttp.responseText;
+			}         
+		}
+		xmlhttp.onload = onreadystatechange;
+		xmlhttp.open("GET", "/FlowProj/SearchDatabase?q=" + str, true);
+		xmlhttp.send();
+	}
+}
+
+
 function deleteFromVirtualCart(x){
 	//var x = document.getElementById("unknownItemTag").innerHTML;
 	//var url= "/EZlog/deleteFromVirtualCart?val=" + val;

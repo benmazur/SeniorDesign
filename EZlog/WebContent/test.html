@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,56 +22,28 @@
 
 <title>Login Success Page</title>
 </head>
-<body style='background-color: #F0F0F0' onload="GetTags()">
-	<%
-		//allow access only if session exists
-		String user = (String) session.getAttribute("user");
-		String userName = null;
-		String sessionID = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("user"))
-					;
-				userName = cookie.getValue();
-				if (cookie.getName().equals("JSESSIONID"))
-					sessionID = cookie.getValue();
-			}
-		}
-	%>
+<body style='background-color: #F0F0F0'>
 	<nav class="navbar navbar-default" style="background-color: #454545">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" style="color: #fff"> EZLOG </a>
 		</div>
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-right" style="margin: 0px;"
-				action="<%=response.encodeURL("LogoutServlet")%>" method="post">
-				<button type="submit" value="Logout" class="btn navbar-btn"
-					style="padding: 1 px">Logout</button>
-			</form>
-			<button value="bluetooth" class="btn btn-primary navbar-right navbar-btn"
-					style="padding: 1 px">Pair Bluetooth</button>
-			<div class="navbar-form navbar-right">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search"
-					onkeyup="searchDatabase(this.value)">
-				</div>
-			</div>
-
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<form class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
 		</div>
+<!-- 		<div>
+		<form style="float:right;" method="post">
+			<button type="submit" value="Logout" class="btn navbar-btn" style="padding:1 px">Logout</button>
+		</form>
+		</div> -->
 	</div>
 	</nav>
 
-
-
-	<center>
-		<h3>
-			Hi
-			<%=userName%>, Login successful. Your Session ID=<%=sessionID%>
-		</h3>
-	</center>
 	<br>
 
 	<br>
@@ -94,10 +64,6 @@
 			<div class="col-xs-6 col-height">
 				<div class="inside">
 					<table id='total'>
-						<!-- 
-		<h2><a id='totalCost' class='label label-default' style="height:120px"> $ total Cost</a></h2>
-		
-					-->
 					</table>
 				</div>
 			</div>
