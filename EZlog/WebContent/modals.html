@@ -1,0 +1,145 @@
+<div id="createDatabaseModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Create Database</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<form>
+						<input type="text" style="width: 300px;" class="form-control"
+							id="database-name" placeholder="Database Name">
+					</form>
+				</div>
+				<br>
+				<div id="databaseFields">
+					<span id="rfidTag" class="label label-success"> RFID Number</span>
+					<span id="name" class="label label-success"> Name</span> <span
+						id="description" class="label label-success"> Description</span> <a
+						href="#"> <span class="glyphicon glyphicon-plus"
+						onclick="showColumnModal()" aria-hidden="true"></span>
+					</a>
+				</div>
+				<br>
+				<div id="database-preview">
+					<table class="table">
+						<tr>
+							<th>RFID Number</th>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+					</table>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="createDatabase()">Create Database</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="addColumnModal" class="modal modal-add-column" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add Column</h4>
+			</div>
+			<div class="modal-body">	
+					<form class="row">
+						<input style="width: 180px; margin:5px;" type="text"
+							class="form-control col-md-8" id="column-name" placeholder="Name">
+						<input style="width: 150px; margin:5px;" type="text"
+							class="form-control col-md-4" id="column-type" placeholder="Type">
+					</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" onclick="addColumn()">Add
+					Column</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="editTableRowModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Row</h4>
+			</div>
+			<div id="editTableRowModalBody" class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" onclick="editRow()">Finish</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="addEntryModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">New Entry</h4>
+			</div>
+			<div id="addEntryModalBody" class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="addEntryToInventory()">Add Entry</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteRowModal" class="modal modal-delete" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Entry</h4>
+			</div>
+			<div id="deleteRowModalBody" class="modal-body"></div>
+			<div id="deleteRowModalFooter" class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-danger" onclick="deleteRow()">Delete
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="deleteColumnModal" class="modal modal-delete" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Column</h4>
+			</div>
+			<div id="deleteColumnModalBody" class="modal-body"></div>
+			<div id="deleteColumnModalFooter" class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-danger" onclick="deleteColumn()">Delete
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>

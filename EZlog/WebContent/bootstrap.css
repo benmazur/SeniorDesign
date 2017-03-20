@@ -6862,5 +6862,17 @@ button.close {
 	border-color: #1CA347;
 }
 
+.modal.modal-add-column .modal-dialog {
+  width: 400px;
+}
+
+.modal.modal-delete .modal-dialog {
+  width: 400px;
+}
+
+.btn-edit{
+	height: 10px:
+}
+
 
 

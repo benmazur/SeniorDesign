@@ -1,42 +1,35 @@
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.*;
+import java.util.ArrayList;
 
-//Servlet that interacts with a search bar that narrows down a list of existing node names based on the characters already in the search bar
-@WebServlet("/SearchDatabase")
-public class SearchDatabase extends HttpServlet {
+/**
+ * Servlet implementation class LoginServlet
+ */
+@WebServlet("/displayInventory")
+public class displayInventory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public SearchDatabase() {
-        super();
-
-    }
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Retrieves the value of the input characters from the request url	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
-		String value = request.getParameter("val");
-		String output = generateJSON(user, value);
-		//System.out.println(output);
+		String output = generateJSON(user);
 		response.setContentType("text/json");
 		response.getWriter().write(output);
 
 	}
-	
-	public String generateJSON(String user, String searchValue){
+
+	public String generateJSON(String user){
 		String JSONdata = "[";
 		ArrayList <String> ColumnNames = getColumns(user);
 		int columnCount = ColumnNames.size(); 
@@ -44,16 +37,9 @@ public class SearchDatabase extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserDatabases", "root", "root");
 			Statement st = con.createStatement();
-			String sql = ("SELECT * FROM " + user+"_inventory where ");
-			for (int j=0; j<columnCount; j++){
-				if (j!=columnCount-1){
-					sql+= ColumnNames.get(j) + " like '" + searchValue + "%' or ";
-				}else{
-					sql+= ColumnNames.get(j) + " like '" + searchValue + "%';";
-				}
-				
-			}
+			String sql = ("SELECT * FROM " + user+"_inventory;");
 			ResultSet rs = st.executeQuery(sql);
+
 			while (rs.next()) {
 				JSONdata += "{";
 				for (int i = 1; i <= columnCount; i++) {
@@ -75,6 +61,11 @@ public class SearchDatabase extends HttpServlet {
 		//System.out.println(JSONdata);
 		return JSONdata;
 	}
+
+
+
+
+
 	public ArrayList <String> getColumns(String user){
 		ArrayList <String> ColumnNames = new ArrayList<String>();
 		try{  

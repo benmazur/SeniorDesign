@@ -14,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,31 +24,30 @@ import java.util.ArrayList;
 
 
 
-@WebServlet("/addItemToInventory")
-public class addItemToInventory extends HttpServlet {
+@WebServlet("/deleteRowFromDatabase")
+public class deleteRowFromDatabase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
-	public addItemToInventory() {
+	public deleteRowFromDatabase() {
 		super();
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
 		String id = request.getParameter("val");
-		String title = request.getParameter("title");
-		String price = request.getParameter("price");
 		try{  
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/Inventory", "root", "root");
-			
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserDatabases", "root", "root");
 			Statement st = con.createStatement();
-			String sql = ("insert into items values (‘" + id + "‘,‘"+title+"‘,"+price+");");
+			String sql = ("DELETE FROM " + user + "_inventory where id='"+ id +"';");
 			int rs = st.executeUpdate(sql);
 			con.close();
 		}
@@ -55,6 +56,7 @@ public class addItemToInventory extends HttpServlet {
 			System.err.println("Got an exception! ");
 			System.err.println(e.getMessage());
 		}
+
 	}
 
 }

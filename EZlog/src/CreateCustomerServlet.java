@@ -46,6 +46,13 @@ public class CreateCustomerServlet extends HttpServlet {
 						+ email + "', '0');");
 				st.executeUpdate(sql);
 				con.close();
+				Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserDatabases", "root", "root");
+				String sql1 = ("create table " + username +"_inventory(ID varchar(30), "
+						+ "Name varchar(30), Description varchar(255));");
+				Statement st1 = con1.createStatement();
+				st1.executeUpdate(sql1);
+				con1.close();
+				
 			}
 			catch (Exception e)
 			{
